@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>従業員お知らせポータル</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            background-color: #f4f6f8;
+            color: #1f2937;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* 画面切り替えの確実な制御 */
+        .page-view {
+            display: none !important;
+        }
+        .page-view.active {
+            display: block !important;
+        }
+
+        /* 赤線ハイライト */
+        .highlight-red {
+            color: #dc2626;
+            font-weight: 700;
+            background: linear-gradient(transparent 60%, #fee2e2 60%);
+            padding: 0 0.2rem;
+        }
+
+        /* アニメーション */
+        .card-enter {
+            animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="pb-12">
+
+    <!-- メニュー画面 -->
+    <div id="page-menu" class="page-view active">
+        <header class="bg-indigo-700 text-white shadow-md py-4">
+            <h1 class="text-xl font-bold text-center tracking-wide">従業員お知らせポータル</h1>
+        </header>
+
+        <main class="max-w-md mx-auto px-4 mt-8 space-y-4">
+            <p class="text-sm text-gray-600 mb-6 text-center">確認したいお知らせをタップしてください。</p>
+
+            <button onclick="showPage('page-meeting')" class="w-full bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between active:bg-gray-50 transition-colors">
+                <div class="flex items-center gap-4">
+                    <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                    </div>
+                    <div class="text-left">
+                        <h2 class="font-bold text-gray-800 text-lg">8月度 班長会議 発表事項</h2>
+                        <p class="text-xs text-gray-500 mt-1">安全管理・ルール遵守について</p>
+                    </div>
+                </div>
+                <span class="text-gray-400 font-bold">＞</span>
+            </button>
+
+            <button onclick="showPage('page-traffic')" class="w-full bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between active:bg-gray-50 transition-colors">
+                <div class="flex items-center gap-4">
+                    <div class="bg-orange-100 p-3 rounded-full text-orange-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    </div>
+                    <div class="text-left">
+                        <h2 class="font-bold text-gray-800 text-lg">アジア大会交通規制</h2>
+                        <p class="text-xs text-gray-500 mt-1">9/19・9/20の高速・各地域の規制</p>
+                    </div>
+                </div>
+                <span class="text-gray-400 font-bold">＞</span>
+            </button>
+
+            <!-- ご提示いただいたURLをそのまま設定 -->
+            <a href="Https://teri3888.talent-p.net/?redirect_controller=StressCheckMng&redirect_action=Index&query_string=e_id%3dDW9lK6kAGwawNZsVr6HUCQ%253d%253d%26type%3d3gmgzlEqs8FUBeP0aDYubA%253d%253d&" target="_blank" rel="noopener noreferrer" class="w-full bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between active:bg-gray-50 transition-colors no-underline">
+                <div class="flex items-center gap-4">
+                    <div class="bg-green-100 p-3 rounded-full text-green-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    </div>
+                    <div class="text-left">
+                        <h2 class="font-bold text-gray-800 text-lg">ストレスチェック</h2>
+                        <p class="text-xs text-gray-500 mt-1">外部システムへ移動します</p>
+                    </div>
+                </div>
+                <span class="text-gray-400 font-bold">＞</span>
+            </a>
+
+            <div class="mt-12 pt-6 border-t border-gray-200 text-center">
+                <button onclick="openAdminModal()" class="text-sm font-semibold text-gray-500 hover:text-gray-800 underline decoration-gray-300 underline-offset-4">
+                    管理者画面 (閲覧確認ログ)
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- 班長会議 画面 -->
+    <div id="page-meeting" class="page-view">
+        <header class="bg-slate-800 text-white shadow-md sticky top-0 z-50">
+            <div class="max-w-md mx-auto px-4 py-3 flex items-center relative">
+                <button onclick="showPage('page-menu')" class="absolute left-4 p-2 -ml-2 text-white hover:text-gray-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <h1 class="text-lg font-bold tracking-wider w-full text-center">8月度 班長会議報告</h1>
+            </div>
+        </header>
+
+        <main class="max-w-md mx-auto px-4 mt-5 space-y-5 pb-8">
+            <div class="bg-white rounded-xl shadow-sm p-4 border-l-4 border-blue-500 card-enter">
+                <p class="text-sm leading-relaxed text-gray-700">
+                    お疲れ様です。8月度の班長会議で出た内容について、各担当者からの発言を中心に報告します。<br>
+                    <span class="highlight-red mt-1 inline-block">赤線が引かれている箇所</span>は特に重要な数字・ルールです。確実に確認をお願いします。
+                </p>
+            </div>
+
+            <!-- ① 時田所長 -->
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden card-enter">
+                <div class="bg-slate-100 px-4 py-2 border-b border-gray-200 flex items-center justify-between">
+                    <h2 class="font-bold text-slate-800 flex items-center gap-2">
+                        <span class="bg-slate-800 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">1</span>
+                        安全・体調管理
+                    </h2>
+                    <span class="text-xs font-bold text-slate-500 bg-slate-200 px-2 py-1 rounded">時田所長</span>
+                </div>
+                <div class="p-4 text-sm text-gray-700 leading-relaxed">
+                    <p>酷暑が続く中、集中力が途切れやすくなるため、<span class="font-bold">こまめな水分補給と少しの休憩・離脱</span>を意識し、無事に帰車すること。</p>
+                </div>
+            </div>
+
+            <!-- ② 宍戸係長 -->
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden card-enter">
+                <div class="bg-slate-100 px-4 py-2 border-b border-gray-200 flex items-center justify-between">
+                    <h2 class="font-bold text-slate-800 flex items-center gap-2">
+                        <span class="bg-slate-800 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">2</span>
+                        安全・品質
+                    </h2>
+                    <span class="text-xs font-bold text-slate-500 bg-slate-200 px-2 py-1 rounded">宍戸係長</span>
+                </div>
+                <div class="p-4 text-sm text-gray-700 leading-relaxed">
+                    <p>2026年度もスタートから<span class="highlight-red">有責貨物事故8件、ミス16件</span>が発生しており非常に厳しい状況。</p>
+                    <p class="mt-2 font-bold bg-red-50 text-red-700 p-2 rounded border border-red-200">
+                        重点目標：「人身や命に関わるような重大事故を絶対に起こさないこと」
+                    </p>
+                </div>
+            </div>
+
+            <!-- 確認フォーム -->
+            <div class="bg-indigo-50 border-2 border-indigo-200 rounded-xl p-5 mt-8 shadow-sm">
+                <h3 class="font-bold text-indigo-800 mb-3 text-center">内容確認</h3>
+                <p class="text-xs text-indigo-600 mb-3 text-center">内容を確認後、お名前を入力して送信してください。</p>
+                <div class="flex flex-col gap-3">
+                    <input type="text" id="name-meeting" placeholder="氏名 (例: 山田太郎)" class="p-3 border border-gray-300 rounded-lg w-full text-base focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <button onclick="submitConfirm('班長会議', 'name-meeting', 'msg-meeting')" class="bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg shadow-sm active:bg-indigo-700 transition-colors">
+                        内容を確認しました
+                    </button>
+                    <div id="msg-meeting" class="text-center text-sm mt-1 h-5"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- アジア大会交通規制 画面 -->
+    <div id="page-traffic" class="page-view">
+        <header class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
+            <div class="max-w-md mx-auto px-4 py-3 flex items-center relative">
+                <button onclick="showPage('page-menu')" class="absolute left-4 p-2 -ml-2 text-white hover:text-blue-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <h1 class="text-lg font-bold tracking-wider w-full text-center">交通規制のお知らせ</h1>
+            </div>
+        </header>
+
+        <main class="max-w-3xl mx-auto px-4 sm:px-6 mt-5 space-y-6 pb-8">
+            <div class="bg-white rounded-xl shadow-sm p-4 border-l-4 border-blue-500">
+                <p class="text-sm md:text-base leading-relaxed">
+                    令和8年9月19日(土)、20日(日)の2日間、アジア競技大会開会式及び関連行事の開催に伴い<span class="font-bold text-red-600">一時的な交通規制</span>を実施します。混雑緩和のため、皆様のご理解とご協力をお願いいたします。
+                </p>
+            </div>
+
+            <section>
+                <h2 class="text-xl font-bold text-gray-800 mb-3 flex items-center border-b-2 border-gray-300 pb-2">高速道路</h2>
+                
+                <!-- 9/19 高速 -->
+                <h3 class="font-bold text-blue-700 mt-4 mb-2">■ 9月19日(土)</h3>
+                <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-200">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-gray-50 text-gray-700">
+                            <tr>
+                                <th class="px-3 py-2 border-b whitespace-nowrap">時間</th>
+                                <th class="px-3 py-2 border-b">路線 (区間)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-3 py-2 whitespace-nowrap align-top font-medium" rowspan="3">11:30~13:00</td>
+                                <td class="px-3 py-2"><span class="font-bold">中部国際空港連絡道路 [上り]</span><br><span class="text-xs text-gray-600">セントレア東IC ~ りんくうIC</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-2"><span class="font-bold">知多半島道路等 [上り]</span><br><span class="text-xs text-gray-600">りんくうIC ~ 名古屋南JCT</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-2"><span class="font-bold">名古屋高速 大高線 [上り]</span><br><span class="text-xs text-gray-600">名古屋南JCT ~ 鶴舞南JCT</span></td>
+                            </tr>
+                            <tr class="bg-blue-50/50">
+                                <td class="px-3 py-2 whitespace-nowrap font-medium">12:00~13:30</td>
+                                <td class="px-3 py-2"><span class="font-bold">名古屋高速 都心環状線</span> <span class="text-xs text-gray-600">全線</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-2 whitespace-nowrap align-top font-medium" rowspan="2">16:00~17:30</td>
+                                <td class="px-3 py-2"><span class="font-bold">名古屋高速 都心環状線</span> <span class="text-xs text-gray-600">全線</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-2"><span class="font-bold">名古屋高速 大高線 [下り]</span><br><span class="text-xs text-gray-600">鶴舞南JCT ~ 堀田出口</span></td>
+                            </tr>
+                            <tr class="bg-blue-50/50">
+                                <td class="px-3 py-2 whitespace-nowrap align-top font-medium" rowspan="2">20:00~21:30</td>
+                                <td class="px-3 py-2"><span class="font-bold">名古屋高速 大高線 [上り]</span><br><span class="text-xs text-gray-600">堀田入口 ~ 鶴舞南JCT</span></td>
+                            </tr>
+                            <tr class="bg-blue-50/50">
+                                <td class="px-3 py-2"><span class="font-bold">名古屋高速 都心環状線</span> <span class="text-xs text-gray-600">全線</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 9/20 高速 -->
+                <h3 class="font-bold text-blue-700 mt-6 mb-2">■ 9月20日(日)</h3>
+                <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-200">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-gray-50 text-gray-700">
+                            <tr>
+                                <th class="px-3 py-2 border-b whitespace-nowrap">時間</th>
+                                <th class="px-3 py-2 border-b">路線 (区間)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-3 py-2 whitespace-nowrap align-top font-medium" rowspan="2">9:00~10:30</td>
+                                <td class="px-3 py-2"><span class="font-bold">名古屋高速 都心環状線</span> <span class="text-xs text-gray-600">全線</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-2"><span class="font-bold">名古屋高速 東山線 [下り]</span><br><span class="text-xs text-gray-600">丸田町JCT ~ 高針JCT</span></td>
+                            </tr>
+                            <tr class="bg-blue-50/50">
+                                <td class="px-3 py-2 whitespace-nowrap align-top font-medium" rowspan="2">9:00~11:00</td>
+                                <td class="px-3 py-2"><span class="font-bold">名二環 [内] / 東名 [上] / 名古屋瀬戸 [下]</span><br><span class="text-xs text-gray-600">高針JCT ~ 日進JCT ~ 長久手IC</span></td>
+                            </tr>
+                            <tr class="bg-blue-50/50">
+                                <td class="px-3 py-2"><span class="font-bold">名古屋瀬戸道路 [上り]</span><br><span class="text-xs text-gray-600">長久手IC ~ 日進JCT</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-2 whitespace-nowrap align-top font-medium" rowspan="2">11:30~13:00</td>
+                                <td class="px-3 py-2"><span class="font-bold">東名高速道路 [下り]</span><br><span class="text-xs text-gray-600">日進JCT ~ 上社JCT</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-2"><span class="font-bold">名二環 [外回り]</span><br><span class="text-xs text-gray-600">上社JCT ~ 高針JCT</span></td>
+                            </tr>
+                            <tr class="bg-blue-50/50">
+                                <td class="px-3 py-2 whitespace-nowrap align-top font-medium" rowspan="2">12:00~13:30</td>
+                                <td class="px-3 py-2"><span class="font-bold">名古屋高速 東山線[上] / 都心環状</span><br><span class="text-xs text-gray-600">高針JCT ~ 丸田町JCT ~ 全線</span></td>
+                            </tr>
+                            <tr class="bg-blue-50/50">
+                                <td class="px-3 py-2"><span class="font-bold">名古屋高速 楠線 [上り]</span><br><span class="text-xs text-gray-600">黒川入口 ~ 東片端JCT</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-2 whitespace-nowrap align-top font-medium" rowspan="2">15:30~17:00</td>
+                                <td class="px-3 py-2"><span class="font-bold">名古屋高速 都心環状線</span> <span class="text-xs text-gray-600">全線</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-2"><span class="font-bold">名古屋高速 万場線 [下り]</span><br><span class="text-xs text-gray-600">新洲崎JCT ~ 黄金出口</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold text-gray-800 mb-3 flex items-center border-b-2 border-gray-300 pb-2 mt-8">各地域の交通規制</h2>
+                
+                <div class="flex overflow-x-auto space-x-2 pb-3 mb-2 -mx-4 px-4 sm:mx-0 sm:px-0 hide-scrollbar" style="scrollbar-width: none;">
+                    <button onclick="showTrafficTab('tab-nagoya-st')" class="t-btn bg-blue-600 text-white border border-blue-600 px-4 py-2 rounded-full whitespace-nowrap text-sm font-bold shadow-sm transition-colors flex-shrink-0">
+                        ❶名駅周辺
+                    </button>
+                    <button onclick="showTrafficTab('tab-nagoya-north')" class="t-btn bg-white text-gray-600 border border-gray-300 px-4 py-2 rounded-full whitespace-nowrap text-sm font-bold shadow-sm hover:bg-gray-50 flex-shrink-0">
+                        ❷市北部
+                    </button>
+                    <button onclick="showTrafficTab('tab-mizuho')" class="t-btn bg-white text-gray-600 border border-gray-300 px-4 py-2 rounded-full whitespace-nowrap text-sm font-bold shadow-sm hover:bg-gray-50 flex-shrink-0">
+                        ❸瑞穂
+                    </button>
+                    <button onclick="showTrafficTab('tab-nagakute')" class="t-btn bg-white text-gray-600 border border-gray-300 px-4 py-2 rounded-full whitespace-nowrap text-sm font-bold shadow-sm hover:bg-gray-50 flex-shrink-0">
+                        ❹長久手
+                    </button>
+                    <button onclick="showTrafficTab('tab-centrair')" class="t-btn bg-white text-gray-600 border border-gray-300 px-4 py-2 rounded-full whitespace-nowrap text-sm font-bold shadow-sm hover:bg-gray-50 flex-shrink-0">
+                        ❺空港島内
+                    </button>
+                </div>
+
+                <!-- ❶ 名古屋駅周辺部 -->
+                <div id="tab-nagoya-st" class="t-content block">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="font-bold text-blue-700 border-b pb-2 mb-2">❶ 名古屋駅周辺部</h3>
+                        <table class="w-full text-sm">
+                            <tr><td class="font-semibold py-1 w-20 text-gray-700">規制日</td><td>9/20(日)</td></tr>
+                            <tr><td class="font-semibold py-1 text-gray-700">時間</td><td class="text-blue-700 font-bold">16:00~17:00</td></tr>
+                            <tr><td class="font-semibold py-1 align-top text-gray-700">主な区域</td><td class="text-gray-700 leading-relaxed">椿町、太閤1丁目、運河町、黄金出入口周辺、太閤通、愛知名駅南線周辺</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ❷ 名古屋市北部 -->
+                <div id="tab-nagoya-north" class="t-content hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="font-bold text-blue-700 border-b pb-2 mb-2">❷ 名古屋市北部</h3>
+                        <table class="w-full text-sm">
+                            <tr><td class="font-semibold py-1 w-20 align-top text-gray-700" rowspan="3">9/19(土)</td><td class="font-medium text-blue-700">12:00~13:30</td></tr>
+                            <tr><td class="font-medium text-blue-700">16:00~17:30</td></tr>
+                            <tr><td class="font-medium text-blue-700 pb-2">20:00~21:30</td></tr>
+                            <tr><td class="font-semibold py-1 w-20 align-top text-gray-700 border-t border-gray-100 pt-2" rowspan="3">9/20(日)</td><td class="font-medium text-blue-700 border-t border-gray-100 pt-2">9:00~10:30</td></tr>
+                            <tr><td class="font-medium text-blue-700">12:00~13:30</td></tr>
+                            <tr><td class="font-medium text-blue-700 pb-2">14:00~17:00</td></tr>
+                            <tr><td class="font-semibold py-1 align-top text-gray-700 border-t border-gray-100 pt-2">主な区域</td><td class="text-gray-700 border-t border-gray-100 pt-2">黒川出入口、城北橋、三の丸一丁目、丸の内入出口、大津通周辺</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ❸ パロマ瑞穂 -->
+                <div id="tab-mizuho" class="t-content hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="font-bold text-blue-700 border-b pb-2 mb-2">❸ パロマ瑞穂スタジアム周辺</h3>
+                        <table class="w-full text-sm">
+                            <tr><td class="font-semibold py-1 w-20 align-top text-gray-700" rowspan="2">9/19(土)</td><td class="font-medium text-blue-700">16:30~17:30</td></tr>
+                            <tr><td class="font-medium text-blue-700 pb-2">20:00~21:30</td></tr>
+                            <tr><td class="font-semibold py-1 align-top text-gray-700 border-t border-gray-100 pt-2">主な区域</td><td class="text-gray-700 border-t border-gray-100 pt-2">牛巻、堀田入出口、瑞穂競技場前、山手グリーンロード、堀田高岳線周辺</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ❹ 長久手 -->
+                <div id="tab-nagakute" class="t-content hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="font-bold text-blue-700 border-b pb-2 mb-2">❹ 長久手市内</h3>
+                        <table class="w-full text-sm">
+                            <tr><td class="font-semibold py-1 w-20 align-top text-gray-700" rowspan="2">9/20(日)</td><td class="font-medium text-blue-700">9:30~11:00</td></tr>
+                            <tr><td class="font-medium text-blue-700 pb-2">11:30~13:00</td></tr>
+                            <tr><td class="font-semibold py-1 align-top text-gray-700 border-t border-gray-100 pt-2">主な区域</td><td class="text-gray-700 border-t border-gray-100 pt-2">長久手IC、前熊東周辺の県道6号等</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ❺ 空港島内 -->
+                <div id="tab-centrair" class="t-content hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="font-bold text-blue-700 border-b pb-2 mb-2">❺ 中部国際空港島内</h3>
+                        <table class="w-full text-sm">
+                            <tr><td class="font-semibold py-1 w-20 text-gray-700">規制日</td><td>9/19(土)</td></tr>
+                            <tr><td class="font-semibold py-1 text-gray-700">時間</td><td class="text-blue-700 font-bold">11:00~12:30</td></tr>
+                            <tr><td class="font-semibold py-1 align-top text-gray-700">主な区域</td><td class="text-gray-700">セントレア東IC出口周辺</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 確認フォーム -->
+            <div class="bg-indigo-50 border-2 border-indigo-200 rounded-xl p-5 mt-8 shadow-sm">
+                <h3 class="font-bold text-indigo-800 mb-3 text-center">内容確認</h3>
+                <p class="text-xs text-indigo-600 mb-3 text-center">内容を確認後、お名前を入力して送信してください。</p>
+                <div class="flex flex-col gap-3">
+                    <input type="text" id="name-traffic" placeholder="氏名 (例: 山田太郎)" class="p-3 border border-gray-300 rounded-lg w-full text-base focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <button onclick="submitConfirm('交通規制', 'name-traffic', 'msg-traffic')" class="bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg shadow-sm active:bg-indigo-700 transition-colors">
+                        内容を確認しました
+                    </button>
+                    <div id="msg-traffic" class="text-center text-sm mt-1 h-5"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 管理者画面 -->
+    <div id="page-admin" class="page-view">
+        <header class="bg-gray-800 text-white shadow-md sticky top-0 z-50">
+            <div class="max-w-md mx-auto px-4 py-3 flex items-center relative">
+                <button onclick="showPage('page-menu')" class="absolute left-4 p-2 -ml-2 text-white hover:text-gray-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <h1 class="text-lg font-bold tracking-wider w-full text-center">閲覧確認ログ</h1>
+            </div>
+        </header>
+        <main class="max-w-md mx-auto px-4 mt-5 pb-12">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-gray-100 text-gray-700 border-b border-gray-300">
+                        <tr>
+                            <th class="px-3 py-3 font-semibold">日時</th>
+                            <th class="px-3 py-3 font-semibold">氏名</th>
+                            <th class="px-3 py-3 font-semibold">ページ</th>
+                            <th class="px-3 py-3 font-semibold text-center">削除</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-tbody" class="divide-y divide-gray-100">
+                        <tr><td colspan="4" class="p-4 text-center text-gray-500">データを読み込み中...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- パスワード入力モーダル -->
+    <div id="pwd-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center px-4">
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 text-center">管理者パスワード</h3>
+            <p class="text-sm text-gray-600 mb-4 text-center">管理画面にアクセスするための<br>パスワードを入力してください。</p>
+            <input type="password" id="pwd-input" placeholder="パスワードを入力" class="w-full p-3 border border-gray-300 rounded-lg text-center tracking-widest text-lg focus:ring-2 focus:ring-indigo-500 outline-none mb-2">
+            <p id="pwd-error" class="text-red-500 text-xs text-center hidden mb-4 font-bold">パスワードが間違っています。</p>
+            <div class="flex gap-3 mt-5">
+                <button onclick="closeAdminModal()" class="flex-1 py-3 bg-gray-200 text-gray-700 font-bold rounded-lg active:bg-gray-300 transition-colors">キャンセル</button>
+                <button onclick="checkAdminPwd()" class="flex-1 py-3 bg-indigo-600 text-white font-bold rounded-lg active:bg-indigo-700 transition-colors">ログイン</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 削除確認カスタムメッセージ -->
+    <div id="delete-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center px-4">
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-xs text-center">
+            <h3 class="text-lg font-bold text-red-600 mb-2">ログを削除しますか？</h3>
+            <p class="text-sm text-gray-600 mb-6">この操作は取り消せません。</p>
+            <input type="hidden" id="delete-target-id">
+            <div class="flex gap-3">
+                <button onclick="document.getElementById('delete-modal').classList.add('hidden')" class="flex-1 py-2 bg-gray-200 text-gray-700 font-bold rounded-lg">キャンセル</button>
+                <button onclick="executeDelete()" class="flex-1 py-2 bg-red-600 text-white font-bold rounded-lg">削除する</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'employee_portal_logs';
+
+        function getLogs() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveLogs(logs) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+        }
+
+        // --- UI 操作ロジック ---
+        
+        window.showPage = function(pageId) {
+            document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        };
+
+        window.showTrafficTab = function(tabId) {
+            document.querySelectorAll('.t-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            document.querySelectorAll('.t-btn').forEach(el => {
+                el.className = 't-btn bg-white text-gray-600 border border-gray-300 px-4 py-2 rounded-full whitespace-nowrap text-sm font-bold shadow-sm hover:bg-gray-50 flex-shrink-0';
+            });
+            const activeBtn = document.querySelector(`button[onclick="showTrafficTab('${tabId}')"]`);
+            if (activeBtn) {
+                activeBtn.className = 't-btn bg-blue-600 text-white border border-blue-600 px-4 py-2 rounded-full whitespace-nowrap text-sm font-bold shadow-sm transition-colors flex-shrink-0';
+            }
+        };
+
+        // --- データ処理ロジック ---
+
+        window.submitConfirm = async function(pageName, inputId, msgId) {
+            const nameInput = document.getElementById(inputId);
+            const name = nameInput.value.trim();
+            const msgDiv = document.getElementById(msgId);
+
+            if (!name) {
+                msgDiv.innerHTML = '<span class="text-red-500 font-bold">名前を入力してください。</span>';
+                return;
+            }
+
+            try {
+                msgDiv.innerHTML = '<span class="text-gray-500">送信中...</span>';
+                
+                // LocalStorageに保存
+                const logs = getLogs();
+                logs.push({
+                    id: Date.now().toString(),
+                    name: name,
+                    page: pageName,
+                    timestamp: new Date().toISOString()
+                });
+                saveLogs(logs);
+
+                nameInput.value = '';
+                msgDiv.innerHTML = `<span class="text-green-600 font-bold">お疲れ様です、${name}様。送信完了しました。</span>`;
+                setTimeout(() => { msgDiv.innerHTML = ''; }, 4000);
+            } catch (e) {
+                console.error(e);
+                msgDiv.innerHTML = '<span class="text-red-500 font-bold">エラーが発生しました。時間を置いてお試しください。</span>';
+            }
+        };
+
+        window.openAdminModal = function() {
+            document.getElementById('pwd-modal').classList.remove('hidden');
+            document.getElementById('pwd-input').value = '';
+            document.getElementById('pwd-error').classList.add('hidden');
+        };
+
+        window.closeAdminModal = function() {
+            document.getElementById('pwd-modal').classList.add('hidden');
+        };
+
+        window.checkAdminPwd = function() {
+            const pwd = document.getElementById('pwd-input').value;
+            if (pwd === '0000') {
+                closeAdminModal();
+                window.showPage('page-admin');
+                loadAdminLogs();
+            } else {
+                document.getElementById('pwd-error').classList.remove('hidden');
+            }
+        };
+
+        window.loadAdminLogs = function() {
+            const logs = getLogs();
+            
+            // 新しい順に並び替え
+            logs.sort((a, b) => {
+                const timeA = new Date(a.timestamp).getTime();
+                const timeB = new Date(b.timestamp).getTime();
+                return timeB - timeA;
+            });
+
+            const tbody = document.getElementById('admin-tbody');
+            tbody.innerHTML = '';
+            
+            if (logs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-gray-500">確認データはまだありません。</td></tr>';
+                return;
+            }
+
+            logs.forEach(log => {
+                const dt = new Date(log.timestamp);
+                const m = dt.getMonth() + 1;
+                const d = dt.getDate();
+                const h = String(dt.getHours()).padStart(2, '0');
+                const min = String(dt.getMinutes()).padStart(2, '0');
+                const dateStr = `${m}/${d} ${h}:${min}`;
+
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-gray-100 hover:bg-gray-50 transition-colors';
+                tr.innerHTML = `
+                    <td class="px-3 py-3 text-xs text-gray-500">${dateStr}</td>
+                    <td class="px-3 py-3 text-sm font-bold text-gray-800">${log.name}</td>
+                    <td class="px-3 py-3 text-xs text-blue-700">${log.page}</td>
+                    <td class="px-3 py-3 text-center">
+                        <button onclick="confirmDelete('${log.id}')" class="text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        window.confirmDelete = function(id) {
+            document.getElementById('delete-target-id').value = id;
+            document.getElementById('delete-modal').classList.remove('hidden');
+        };
+
+        window.executeDelete = function() {
+            const id = document.getElementById('delete-target-id').value;
+            if (id) {
+                let logs = getLogs();
+                logs = logs.filter(log => log.id !== id);
+                saveLogs(logs);
+                
+                document.getElementById('delete-modal').classList.add('hidden');
+                loadAdminLogs(); // 再描画
+            }
+        };
+    </script>
+</body>
+</html>
